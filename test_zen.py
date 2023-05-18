@@ -162,11 +162,18 @@ def shipping_fees_json():
 @pytest.mark.parametrize(
     "case",
     [
-        lazy_fixture("shipping_fees_case1"),
-        lazy_fixture("shipping_fees_case2"),
+        lazy_fixture("case1"),
+        lazy_fixture("case2"),
+        lazy_fixture("case3"),
+        lazy_fixture("case4"),
+        lazy_fixture("case5"),
+        lazy_fixture("case6"),
+        lazy_fixture("case7"),
+        lazy_fixture("case8"),
+        lazy_fixture("case9"),
     ],
 )
-def test_zen_engine_for_shipping_fees(benchmark, shipping_fees_json, case):
+def test_zen_engine(benchmark, shipping_fees_json, case):
     request, expected = case
     engine = zen.ZenEngine()
 

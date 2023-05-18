@@ -13,6 +13,7 @@ zen-engine = "^0.6.0"
 pydmnrules = "^1.4.4"
 rule-engine = "^3.5.1"
 business-rules = "^1.1.1"
+pytest-benchmark = {extras = ["histogram"], version = "^4.0.0"}
 
 
 [tool.poetry.group.dev.dependencies]

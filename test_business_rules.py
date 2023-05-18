@@ -296,11 +296,18 @@ def shipping_fees_rules():
 @pytest.mark.parametrize(
     "case",
     [
-        lazy_fixture("shipping_fees_case1"),
-        lazy_fixture("shipping_fees_case2"),
+        lazy_fixture("case1"),
+        lazy_fixture("case2"),
+        lazy_fixture("case3"),
+        lazy_fixture("case4"),
+        lazy_fixture("case5"),
+        lazy_fixture("case6"),
+        lazy_fixture("case7"),
+        lazy_fixture("case8"),
+        lazy_fixture("case9"),
     ],
 )
-def test_business_rules_for_shipping_fees(benchmark, shipping_fees_rules, case):
+def test_business_rules(benchmark, shipping_fees_rules, case):
     request, expected = case
     engine = ShippingFeeEngine(shipping_fees_rules)
     result = benchmark(engine.evaluate, request)

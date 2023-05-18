@@ -23,17 +23,15 @@ class SimpleEngine:
 def shipping_fees_rules():
     return [
         (
-            " and ".join(
-                [
-                    "cart.total>1000",
-                    "customer.country=='US'",
-                    "customer.tier=='gold'",
-                ]
+            (
+                "cart.total>1000"
+                " and customer.country=='US'"
+                " and customer.tier=='gold'"
             ),
             {"fees": {"percentage": 2}},
         ),
         (
-            " and ".join(["cart.total>1000", "customer.country=='US'"]),
+            "cart.total>1000 and customer.country=='US'",
             {"fees": {"percentage": 3}},
         ),
         (
@@ -41,12 +39,7 @@ def shipping_fees_rules():
             {"fees": {"flat": 25}},
         ),
         (
-            " and ".join(
-                [
-                    "cart.total>1000",
-                    "customer.country in ['CA', 'MX']",
-                ]
-            ),
+            "cart.total>1000 and customer.country in ['CA', 'MX']",
             {"fees": {"percentage": 5}},
         ),
         (
@@ -54,12 +47,7 @@ def shipping_fees_rules():
             {"fees": {"flat": 50}},
         ),
         (
-            " and ".join(
-                [
-                    "cart.total>1000",
-                    "customer.country in ['IE', 'UK', 'FR', 'DE']",
-                ]
-            ),
+            "cart.total>1000 and customer.country in ['IE', 'UK', 'FR', 'DE']",
             {"fees": {"percentage": 10}},
         ),
         (
@@ -71,7 +59,7 @@ def shipping_fees_rules():
             {"fees": {"percentage": 15}},
         ),
         (
-            "True",
+            "cart.total<=1000",
             {"fees": {"flat": 150}},
         ),
     ]
@@ -80,11 +68,18 @@ def shipping_fees_rules():
 @pytest.mark.parametrize(
     "case",
     [
-        lazy_fixture("shipping_fees_case1"),
-        lazy_fixture("shipping_fees_case2"),
+        lazy_fixture("case1"),
+        lazy_fixture("case2"),
+        lazy_fixture("case3"),
+        lazy_fixture("case4"),
+        lazy_fixture("case5"),
+        lazy_fixture("case6"),
+        lazy_fixture("case7"),
+        lazy_fixture("case8"),
+        lazy_fixture("case9"),
     ],
 )
-def test_rule_engine_for_shipping_fees(benchmark, shipping_fees_rules, case):
+def test_rule_engine(benchmark, shipping_fees_rules, case):
     engine = SimpleEngine()
     for rule, output in shipping_fees_rules:
         engine.add_row(rule, output)
